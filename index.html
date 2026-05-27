@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <title>Wizard101 Phrase Piano</title>
+</head>
+<body>
+    <div id="credit">
+        <div>Created by Victoria SwiftStone</div>
+        <div id="credit-sub">Wizard101 Credited to KingsIsle Entertainment, Inc.</div>
+    </div>
+    <div id="sustain-indicator">SUSTAIN: OFF</div>
+    <div style="text-align:center; 
+    position: absolute;
+    bottom: 100px;
+    left: 50%; 
+    transform: translateX(-50%);
+
+    padding: 6px 12px;
+    border-radius: 8px;
+    color:rgba(255,255,255,0.6); 
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
+    font-size: 16px;
+    pointer-events: none;">
+    SPACEBAR
+    </div>
+    
+    <main class="glass-panel">
+        <div class="controls">
+            <button id="recordBtn">RECORD: OFF</button>
+            <button id="playBtn">PLAY</button>
+            <button id="stopBtn">STOP ALL</button>
+            <button id="exportBtn">"SHEET MUSIC" EXPORT</button>
+            <button id="setSaveFolderBtn">SET SAVE FOLDER</button>
+            <button id="siteBtn">WIZARD101 FORUMS MUSIC LIBRARY</button>
+            <button id="labelToggleBtn">KEYBINDS / MUSICNOTES</button>
+        </div>
+        
+        <audio id="save-sound" src="Equipped Mount.mp3" preload="auto"></audio>
+
+        <div id="sheet"></div>
+        <div id="piano-roll"></div>
+        <div class = "piano-wrapper">
+            <div class="piano">
+                <div data-note="C4" data-key="z" class="key white">
+                    <span class="key-label">Z</span>
+                </div>
+                
+                <div data-note="Db4" data-key="s" class="key black">
+                    <span class="key-label">S</span>
+                </div>
+                
+                <div data-note="D4" data-key="x" class="key white">
+                    <span class="key-label">X</span>
+                </div>
+                
+                <div data-note="Eb4" data-key="d" class="key black">
+                    <span class="key-label">D</span>
+                </div>
+                
+                <div data-note="E4" data-key="c" class="key white">
+                    <span class="key-label">C</span>
+                </div>
+                
+                <div data-note="F4" data-key="v" class="key white">
+                    <span class="key-label">V</span>
+                </div>
+                
+                <div data-note="Gb4" data-key="g" class="key black">
+                    <span class="key-label">G</span>
+                </div>
+                
+                <div data-note="G4" data-key="b" class="key white">
+                    <span class="key-label">B</span>
+                </div>
+                
+                <div data-note="Ab4" data-key="h" class="key black">
+                    <span class="key-label">H</span>
+                </div>
+                
+                <div data-note="A4" data-key="n" class="key white">
+                    <span class="key-label">N</span>
+                </div>
+                
+                <div data-note="Bb4" data-key="j" class="key black">
+                    <span class="key-label">J</span>
+                </div>
+                
+                <div data-note="B4" data-key="m" class="key white">
+                    <span class="key-label">M</span>
+                </div>
+                
+                <div data-note="C5" data-key="e" class="key white">
+                    <span class="key-label">E</span>
+                </div>
+                
+                <div data-note="Db5" data-key="4" class="key black">
+                    <span class="key-label">4</span>
+                </div>
+                
+                <div data-note="D5" data-key="r" class="key white">
+                    <span class="key-label">R</span>
+                </div>
+                
+                <div data-note="Eb5" data-key="5" class="key black">
+                    <span class="key-label">5</span>
+                </div>
+                
+                <div data-note="E5" data-key="t" class="key white">
+                    <span class="key-label">T</span>
+                </div>
+                
+                <div data-note="F5" data-key="y" class="key white">
+                    <span class="key-label">Y</span>
+                </div>
+                
+                <div data-note="Gb5" data-key="7" class="key black">
+                    <span class="key-label">7</span>
+                </div>
+                
+                <div data-note="G5" data-key="u" class="key white">
+                    <span class="key-label">U</span>
+                </div>
+                
+                <div data-note="Ab5" data-key="8" class="key black">
+                    <span class="key-label">8</span>
+                </div>
+                
+                <div data-note="A5" data-key="i" class="key white">
+                    <span class="key-label">I</span>
+                </div>
+                
+                <div data-note="Bb5" data-key="9" class="key black">
+                    <span class="key-label">9</span>
+                </div>
+                
+                <div data-note="B5" data-key="o" class="key white">
+                    <span class="key-label">O</span>
+                </div>
+                
+                <div data-note="C6" data-key="p" class="key white">
+                    <span class="key-label">P</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <audio id="C4" src="MP3 NOTES/C4.mp3"></audio>
+    <audio id="Db4" src="MP3 NOTES/Db4.mp3"></audio>
+    <audio id="D4" src="MP3 NOTES/D4.mp3"></audio>
+    <audio id="Eb4" src="MP3 NOTES/Eb4.mp3"></audio>
+    <audio id="E4" src="MP3 NOTES/E4.mp3"></audio>
+    <audio id="F4" src="MP3 NOTES/F4.mp3"></audio>
+    <audio id="Gb4" src="MP3 NOTES/Gb4.mp3"></audio>
+    <audio id="G4" src="MP3 NOTES/G4.mp3"></audio>
+    <audio id="Ab4" src="MP3 NOTES/Ab4.mp3"></audio>
+    <audio id="A4" src="MP3 NOTES/A4.mp3"></audio>
+    <audio id="Bb4" src="MP3 NOTES/Bb4.mp3"></audio>
+    <audio id="B4" src="MP3 NOTES/B4.mp3"></audio>
+    <audio id="C5" src="MP3 NOTES/C5.mp3"></audio>
+    <audio id="Db5" src="MP3 NOTES/Db5.mp3"></audio>
+    <audio id="D5" src="MP3 NOTES/D5.mp3"></audio>
+    <audio id="Eb5" src="MP3 NOTES/Eb5.mp3"></audio>
+    <audio id="E5" src="MP3 NOTES/E5.mp3"></audio>
+    <audio id="F5" src="MP3 NOTES/F5.mp3"></audio>
+    <audio id="Gb5" src="MP3 NOTES/Gb5.mp3"></audio>
+    <audio id="G5" src="MP3 NOTES/G5.mp3"></audio>
+    <audio id="Ab5" src="MP3 NOTES/Ab5.mp3"></audio>
+    <audio id="A5" src="MP3 NOTES/A5.mp3"></audio>
+    <audio id="Bb5" src="MP3 NOTES/Bb5.mp3"></audio>
+    <audio id="B5" src="MP3 NOTES/B5.mp3"></audio>
+    <audio id="C6" src="MP3 NOTES/C6.mp3"></audio>
+
+    <div id="exportModal" class="modal hidden">
+    <div class="modal-content">
+        <h2>Name Your Creation</h2>
+
+        <input id="songNameInput" type="text" placeholder="Sheet Music for Wizard101" />
+
+        <div class="modal-buttons">
+            <button id="confirmExportBtn">Export</button>
+            <button id="cancelExportBtn">Cancel</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

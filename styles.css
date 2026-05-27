@@ -1,0 +1,398 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-image: url('background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+    position: relative;
+}
+
+.piano {
+    transition: transform 0.2s ease;
+}
+
+.glass-panel {
+    padding: 30px;
+    border-radius: 24px;
+
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    transform: translateZ(0);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+
+    background: radial-gradient(
+        circle at center,
+        rgba(0,0,0,0.15),
+        rgba(0,0,0,0.75)
+    );
+
+    backdrop-filter: blur(2px);
+    pointer-events: none;
+}
+
+button {
+    padding: 8px 14px;
+    border-radius: 8px;
+
+    background: rgba(255,255,255,0.08);
+    color: white;
+
+    border: 1px solid rgba(255,255,255,0.12);
+
+    backdrop-filter: blur(10px);
+
+    cursor: pointer;
+
+    transition: transform 0.15s ease, background 0.2s ease;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    z-index: 2;
+    position: relative;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    background: rgba(255,255,255,0.12);
+}
+
+#recordBtn.recording {
+    animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 8px rgba(255, 60, 60, 0.5); }
+    50% { box-shadow: 0 0 18px rgba(255, 60, 60, 0.9); }
+    100% { box-shadow: 0 0 8px rgba(255, 60, 60, 0.5); }
+}
+
+#playBtn.playing {
+    animation: playPulse 1.2s infinite;
+}
+
+@keyframes playPulse {
+    0% {
+        box-shadow: 0 0 8px rgba(0, 255, 120, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 255, 120, 0.9);
+    }
+    100% {
+        box-shadow: 0 0 8px rgba(0, 255, 120, 0.4);
+    }
+}
+
+.piano-wrapper {
+    position: relative;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+#sustain-indicator {
+    position: absolute;
+    bottom: 125px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 30px;
+    color: white;
+    pointer-events: none;
+
+    background: rgba(0,0,0,0.5);
+
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(8px);
+
+    transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.piano {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
+}
+
+.key {
+    --intensity: 0;
+
+    height: calc(var(--width) * 4);
+    width: var(--width);
+    flex-shrink: 0;
+
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    user-select: none;
+
+    transition:
+        transform 0.12s ease,
+        filter 0.2s ease;
+}
+
+.key::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+
+    opacity: calc(var(--intensity) * 0.65);
+
+    box-shadow: 0 0 calc(var(--intensity) * 28px)
+                rgba(120, 180, 255, 0.35);
+
+    transition: opacity 0.2s ease, box-shadow 0.2s ease;
+}
+
+.key.active {
+    transform: scale(0.985);
+}
+
+.key.playback-hit {
+    transform: scale(1.02);
+}
+
+.key.playback-hit::after {
+    box-shadow: 0 0 calc(var(--intensity) * 32px)
+                rgba(255, 255, 255, 0.25);
+}
+
+.key-label {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 14px;
+    margin-bottom: 8px;
+
+    position: absolute;
+    bottom: 6px;
+
+    opacity: 0.6;
+
+    transition: opacity 0.15s ease;
+
+    pointer-events: none;
+}
+
+.key:hover .key-label {
+    opacity: 1;
+}
+
+.black .key-label {
+    color: white;
+    opacity: 0.75;
+}
+
+.white {
+    --width: 100px;
+
+    background: white;
+    border: 1px solid #dddddd;
+}
+
+.white.active {
+    background: #e0e0e0;
+}
+
+.black {
+    --width: 60px;
+
+    background: black;
+
+    position: relative; 
+    z-index: 2;
+
+    margin-left: calc(var(--width) / -2);
+    margin-right: calc(var(--width) / -2);
+}
+
+.black.active {
+    background: #666;
+}
+
+#piano-roll {
+    position: relative;   
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    height: 300px; 
+    overflow: hidden;
+    margin-bottom: 20px;
+
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+}
+
+
+.roll-note {
+    position: absolute;
+    width: 12px;
+    height: 10px;
+    border-radius: 3px;
+
+    transform: translateY(0px);
+}
+
+.roll-note.live {
+    background: rgb(0, 186, 233);
+    box-shadow: 0 0 8px rgba(120,180,255,0.4);
+}
+
+.roll-note.recorded {
+    background: rgba(255, 100, 100, 0.85);
+    box-shadow: 0 0 8px rgba(255,100,100,0.4);
+}
+
+.roll-note.played {
+    background: rgba(0, 255, 120, 0.85);
+    box-shadow: 0 0 8px rgba(0,255,120,0.4);
+}
+
+
+#sheet {
+    display: none;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 300px;
+    max-height: 80vh;
+    overflow-y: auto;
+
+    background: rgba(0,0,0,0.5);
+    padding: 10px;
+    border-radius: 10px;
+
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.phrase-block {
+    margin-bottom: 10px;
+    padding: 6px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+#credit {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(6px);
+
+    padding: 6px 10px;
+    border-radius: 6px;
+
+    display: inline-block;
+
+    pointer-events: none;
+
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 18px;
+    line-height: 1.3;
+
+    text-align: right;
+}
+
+#credit-sub {
+    display: block;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 12px;
+    opacity: 0.7;
+    margin-top: 3px;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    backdrop-filter: blur(6px);
+
+    z-index: 9999;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: rgba(0,0,0,0.6);
+    border: 1px solid rgba(255,255,255,0.1);
+
+    padding: 20px;
+    border-radius: 16px;
+
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    min-width: 280px;
+
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+
+.modal-content input {
+    padding: 10px;
+    border-radius: 8px;
+
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.08);
+    color: white;
+    outline: none;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
